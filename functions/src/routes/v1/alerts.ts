@@ -63,8 +63,6 @@ alerts.post("/create", async (req: Request, res: Response) => {
       typeof body.chatId === "number" &&
       body.name &&
       typeof body.name === "string" &&
-      body.lastName &&
-      typeof body.lastName === "string" &&
       pairCodes.includes(body.pairCode)
     ) {
       const newDoc = db.collection("alerts").doc()
@@ -104,9 +102,6 @@ alerts.post("/create", async (req: Request, res: Response) => {
     if (!body.name) {
       res.status(200).send({ status: 400, message: "Missing name" })
     }
-    if (!body.lastName) {
-      res.status(200).send({ status: 400, message: "Missing lastName" })
-    }
 
     // Invalid fields
     if (body.alertType !== "rise" && body.alertType !== "fall") {
@@ -130,10 +125,7 @@ alerts.post("/create", async (req: Request, res: Response) => {
     if (typeof body.name !== "string") {
       res.status(200).send({ status: 400, message: "Invalid name" })
     }
-    if (typeof body.lastName !== "string") {
-      res.status(200).send({ status: 400, message: "Invalid lastName" })
-    }
-    // userHandle is optional because an account can be used without a handle
+    // userHandle && lastName is optional because an account can be used without a handle
   } catch (error: any) {
     res.status(200).send({ status: 500, message: "Something went wrong", error: error })
   }
