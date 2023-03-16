@@ -191,7 +191,11 @@ Precio objetivo: $ *${price}*
 Podés ver tus alertas activas con el comando /misalertas`
             )
           })
-          .catch(err => ctx.scene.leave())
+          .catch(err => {
+            ctx.deleteMessage()
+            ctx.scene.leave()
+            return ctx.reply(`❗️ Error al crear la alerta`)
+          })
       }
 
       if (confirmation === "no") {

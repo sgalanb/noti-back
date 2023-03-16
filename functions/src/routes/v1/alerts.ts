@@ -80,6 +80,8 @@ alerts.post("/create", async (req: Request, res: Response) => {
         .then(() => {
           res.status(200).send({ status: 200, message: "Alert created" })
         })
+    } else {
+      res.status(200).send({ status: 400, message: "Something went wrong." })
     }
 
     // Missing fields

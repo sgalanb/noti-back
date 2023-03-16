@@ -63,6 +63,7 @@ checkPrices.post("/", async (req: Request, res: Response) => {
         if (!TG_BOT_TOKEN) {
           throw new Error("Missing bot token")
         }
+        notificationsSent++
         const bot = new Telegraf(TG_BOT_TOKEN)
         bot.telegram.sendMessage(
           alert.chatId,
@@ -80,13 +81,11 @@ checkPrices.post("/", async (req: Request, res: Response) => {
               : "ARS"
           } bajó a $${alert.targetPrice} ${alert.pairCode.endsWith("ARS") ? "ARS" : "USD"} 🔹`
         )
-        notificationsSent++
       }
     })
     res.json({
       status: 200,
       message: `${notificationsSent > 0 ? `Sent ${notificationsSent} notifications` : "No notifications sent"}`,
-      notificationsSent,
     })
   } catch (error: any) {
     if (!ADMIN_CHAT_ID) {
