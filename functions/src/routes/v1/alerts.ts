@@ -59,8 +59,6 @@ alerts.post("/create", async (req: Request, res: Response) => {
       body.priceAtCreation > 0 &&
       body.pairCode &&
       typeof body.pairCode === "string" &&
-      body.userHandle &&
-      typeof body.userHandle === "string" &&
       body.chatId &&
       typeof body.chatId === "number" &&
       body.name &&
@@ -97,9 +95,6 @@ alerts.post("/create", async (req: Request, res: Response) => {
     if (!body.priceAtCreation) {
       res.status(200).send({ status: 400, message: "Missing price at creation" })
     }
-    if (!body.userHandle) {
-      res.status(200).send({ status: 400, message: "Missing user handle" })
-    }
     if (!body.pairCode) {
       res.status(200).send({ status: 400, message: "Missing pair code" })
     }
@@ -126,9 +121,6 @@ alerts.post("/create", async (req: Request, res: Response) => {
     if (typeof body.priceAtCreation !== "number" || body.priceAtCreation <= 0) {
       res.status(200).send({ status: 400, message: "Invalid price at creation" })
     }
-    if (typeof body.userHandle !== "string") {
-      res.status(200).send({ status: 400, message: "Invalid user handle" })
-    }
     if (!pairCodes.includes(body.pairCode)) {
       res.status(200).send({ status: 400, message: "Invalid pair code" })
     }
@@ -141,6 +133,7 @@ alerts.post("/create", async (req: Request, res: Response) => {
     if (typeof body.lastName !== "string") {
       res.status(200).send({ status: 400, message: "Invalid lastName" })
     }
+    // userHandle is optional because an account can be used without a handle
   } catch (error: any) {
     res.status(200).send({ status: 500, message: "Something went wrong", error: error })
   }
