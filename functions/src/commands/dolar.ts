@@ -1,5 +1,8 @@
 import { Markup, Scenes } from "telegraf"
 import { Pair } from "../types/beloTypes"
+import config from "../config/env"
+
+const ADMIN_CHAT_ID = config.ADMIN_CHAT_ID as string
 
 const dolar = new Scenes.WizardScene(
   "dolar",
@@ -178,18 +181,24 @@ Precio objetivo: $ *${price}*
             lastName: ctx.from?.last_name,
           }),
         })
-          .then(res => {
-            if (res.status !== 200) {
+          .then((res: any) => {
+            if (res?.status !== 200) {
               ctx.deleteMessage()
               ctx.scene.leave()
+              ctx.telegram.sendMessage(
+                ADMIN_CHAT_ID,
+                `❗️chatId: ${ctx.chat.id}
+                  Error al crear dolar: ${res?.message}`
+              )
               return ctx.reply(`❗️ Error al crear la alerta`)
-            }
-            ctx.deleteMessage()
-            ctx.scene.leave()
-            return ctx.reply(
-              `✅ Alerta creada correctamente!
+            } else {
+              ctx.deleteMessage()
+              ctx.scene.leave()
+              return ctx.reply(
+                `✅ Alerta creada correctamente!
 Podés ver tus alertas activas con el comando /misalertas`
-            )
+              )
+            }
           })
           .catch(err => {
             ctx.deleteMessage()
