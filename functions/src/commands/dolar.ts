@@ -73,7 +73,7 @@ Qué tipo de cotización te interesa?
 
       const priceData = await fetch("https://api.belo.app/public/price").then(res => res.json())
 
-      const actualPrice = priceData?.data?.find(
+      const actualPrice = priceData?.find(
         (pair: Pair) =>
           pair.pairCode ===
           `${selectedStablecoin === "usdc" ? "USDC" : selectedStablecoin === "usdt" ? "USDT" : "DAI"}/ARS`

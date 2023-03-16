@@ -1,9 +1,9 @@
 import { Router, Request, Response } from "express"
 import { db, admin } from "../../config/firebase"
 import { Telegraf } from "telegraf"
-import { priceData } from "../../types/beloTypes"
 import { Alert } from "types"
 import config from "../../config/env"
+import { Pair } from "beloTypes"
 
 const TG_BOT_TOKEN = config.TG_BOT_TOKEN as string
 const ADMIN_CHAT_ID = config.ADMIN_CHAT_ID as string
@@ -12,7 +12,7 @@ const checkPrices = Router()
 
 checkPrices.post("/", async (req: Request, res: Response) => {
   try {
-    const priceData: priceData = await fetch("https://api.belo.app/public/price").then(res => res.json())
+    const priceData = await fetch("https://api.belo.app/public/price").then(res => res.json())
 
     const alerts = await db
       .collection("alerts")
@@ -25,7 +25,7 @@ checkPrices.post("/", async (req: Request, res: Response) => {
     let notificationsSent = 0
 
     alerts.map(async alert => {
-      const pair = priceData?.data?.find((pair: any) => pair.pairCode === alert.pairCode)
+      const pair = priceData?.find((pair: Pair) => pair.pairCode === alert.pairCode)
       const currentPrice: number | null =
         alert.priceType === "ask" ? Number(pair?.ask) : alert.priceType === "bid" ? Number(pair?.bid) : null
       if (!alert.triggered && alert.alertType === "rise" && currentPrice && currentPrice > alert.targetPrice) {

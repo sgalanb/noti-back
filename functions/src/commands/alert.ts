@@ -106,7 +106,7 @@ Qué tipo de cotización te interesa?
 
       const priceData = await fetch("https://api.belo.app/public/price").then(res => res.json())
 
-      const actualPrice = priceData?.data?.find((pair: Pair) => pair.pairCode === pairCode)?.[selectedPriceType]
+      const actualPrice = priceData?.find((pair: Pair) => pair.pairCode === pairCode)?.[selectedPriceType]
 
       ctx.wizard.state.pairCode = pairCode
       ctx.wizard.state.actualPrice = actualPrice
