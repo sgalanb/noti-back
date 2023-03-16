@@ -3,6 +3,10 @@ import { db, admin } from "../../config/firebase"
 import { Telegraf } from "telegraf"
 import { priceData } from "../../types/beloTypes"
 import { Alert } from "types"
+import config from "../../config/env"
+
+const TG_BOT_TOKEN = config.TG_BOT_TOKEN as string
+const ADMIN_CHAT_ID = config.ADMIN_CHAT_ID as string
 
 const checkPrices = Router()
 
@@ -29,10 +33,10 @@ checkPrices.post("/", async (req: Request, res: Response) => {
           triggered: true,
           triggerDate: admin.firestore.Timestamp.now(),
         })
-        if (!process.env.BOT_TOKEN) {
+        if (!TG_BOT_TOKEN) {
           throw new Error("Missing bot token")
         }
-        const bot = new Telegraf(process.env.BOT_TOKEN)
+        const bot = new Telegraf(TG_BOT_TOKEN)
         bot.telegram.sendMessage(
           alert.chatId,
           `🔹 ${
@@ -56,10 +60,10 @@ checkPrices.post("/", async (req: Request, res: Response) => {
           triggered: true,
           triggerDate: admin.firestore.Timestamp.now(),
         })
-        if (!process.env.BOT_TOKEN) {
+        if (!TG_BOT_TOKEN) {
           throw new Error("Missing bot token")
         }
-        const bot = new Telegraf(process.env.BOT_TOKEN)
+        const bot = new Telegraf(TG_BOT_TOKEN)
         bot.telegram.sendMessage(
           alert.chatId,
           `🔹 ${
@@ -85,11 +89,11 @@ checkPrices.post("/", async (req: Request, res: Response) => {
       notificationsSent,
     })
   } catch (error: any) {
-    if (!process.env.ADMIN_CHAT_ID) {
+    if (!ADMIN_CHAT_ID) {
       throw new Error("Missing bot token")
     }
-    const bot = new Telegraf(process.env.ADMIN_CHAT_ID)
-    bot.telegram.sendMessage(process.env.ADMIN_CHAT_ID, `Error en check prices: ${error}`)
+    const bot = new Telegraf(ADMIN_CHAT_ID)
+    bot.telegram.sendMessage(ADMIN_CHAT_ID, `Error en check prices: ${error}`)
 
     res.status(200).send({ status: 500, message: "Something went wrong", error: error })
   }

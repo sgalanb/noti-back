@@ -4,15 +4,18 @@ dotenv.config()
 
 interface ENV {
   TG_BOT_TOKEN: string
+  ADMIN_CHAT_ID: string
 }
 
 interface Config {
   TG_BOT_TOKEN: string
+  ADMIN_CHAT_ID: string
 }
 
 const getConfig = (): ENV => {
   return {
     TG_BOT_TOKEN: process.env.TG_BOT_TOKEN as string,
+    ADMIN_CHAT_ID: process.env.ADMIN_CHAT_ID as string,
   }
 }
 

@@ -1,5 +1,8 @@
 import { Alert } from "../types/types"
 import { Markup, Scenes } from "telegraf"
+import config from "../config/env"
+
+const ADMIN_CHAT_ID = config.ADMIN_CHAT_ID as string
 
 const misalertas = new Scenes.WizardScene(
   "misalertas",
@@ -15,7 +18,7 @@ const misalertas = new Scenes.WizardScene(
       })
       .catch(async err => {
         await ctx.telegram.sendMessage(
-          process.env.ADMIN_CHAT_ID,
+          ADMIN_CHAT_ID,
           `❗️chatId: ${ctx.chat.id}
             Error al traer alertas de /get-alerts: ${err}`
         )
@@ -85,7 +88,7 @@ Hacé click en una alerta para eliminarla
           } else {
             await ctx.deleteMessage()
             await ctx.telegram.sendMessage(
-              process.env.ADMIN_CHAT_ID,
+              ADMIN_CHAT_ID,
               `❗️chatId: ${ctx.chat.id}
                     Error al eliminar alerta: ${res}`
             )
@@ -95,7 +98,7 @@ Hacé click en una alerta para eliminarla
         .catch(async err => {
           await ctx.deleteMessage()
           await ctx.telegram.sendMessage(
-            process.env.ADMIN_CHAT_ID,
+            ADMIN_CHAT_ID,
             `❗️chatId: ${ctx.chat.id}
                 Error al eliminar alerta: ${err}`
           )
