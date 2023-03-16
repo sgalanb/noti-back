@@ -1,7 +1,10 @@
-import { Router } from "express";
-import { checkPrices } from "./checkPrices";
-const v1 = Router();
+import { Router } from "express"
+import { alerts } from "./alerts"
+import { checkPrices } from "./check-prices"
 
-v1.use("/check-prices", checkPrices);
+const v1 = Router()
 
-export { v1 };
+v1.use("/check-prices", checkPrices)
+v1.use("/alerts", alerts)
+
+export { v1 }

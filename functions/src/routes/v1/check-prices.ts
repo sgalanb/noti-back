@@ -1,36 +1,13 @@
 import { Router, Request, Response } from "express"
 import { db, admin } from "../../config/firebase"
 import { Telegraf } from "telegraf"
+import { priceData } from "../../types/beloTypes"
+import { Alert } from "types"
 
 const checkPrices = Router()
 
 checkPrices.post("/", async (req: Request, res: Response) => {
   try {
-    type Pair = {
-      ask: string
-      bid: string
-      baseId: string
-      quoteId: string
-      pairCode: string
-      spread: string
-    }
-    type priceData = { data: Pair[] }
-
-    type Alert = {
-      alertId: string
-      alertType: string
-      creationDate: admin.firestore.Timestamp
-      pairCode: string
-      priceType: string
-      targetPrice: number
-      priceAtCreation: number
-      triggered: boolean
-      userHandle: string
-      chatId: string
-      name: string
-      lastName: string
-    }
-
     const priceData: priceData = await fetch("https://api.belo.app/public/price").then(res => res.json())
 
     const alerts = await db
