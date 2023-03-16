@@ -66,3 +66,5 @@ telegramInput.post("/", async (req: Request, res: Response) => {
     console.log(error.toString())
   }
 })
+
+export { telegramInput }
