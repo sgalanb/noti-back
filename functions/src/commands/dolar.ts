@@ -179,6 +179,11 @@ Precio objetivo: $ *${price}*
           }),
         })
           .then(res => {
+            if (res.status !== 200) {
+              ctx.deleteMessage()
+              ctx.scene.leave()
+              return ctx.reply(`❗️ Error al crear la alerta`)
+            }
             ctx.deleteMessage()
             ctx.scene.leave()
             return ctx.reply(
