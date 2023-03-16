@@ -144,7 +144,7 @@ alerts.post("/create", async (req: Request, res: Response) => {
   }
 })
 
-alerts.post("/delete", async (req: Request, res: Response) => {
+alerts.delete("/delete", async (req: Request, res: Response) => {
   try {
     const alertId = req.query.alertId
     if (alertId && typeof alertId === "string") {
