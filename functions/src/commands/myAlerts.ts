@@ -104,7 +104,11 @@ Hacé click en una alerta para eliminarla
           )
           return ctx.reply(`❗️ Error al eliminar la alerta`)
         })
-    } else if (ctx.message?.text === "/alerta" || ctx.message?.text === "/dolar") {
+    } else if (
+      ctx.message?.text === "/alerta" ||
+      ctx.message?.text === "/dolar" ||
+      ctx.message?.text === "/misalertas"
+    ) {
       try {
         await ctx.telegram.deleteMessage(ctx.chat.id, ctx.wizard.state.messageToDelete + 1)
         await ctx.telegram.deleteMessage(ctx.chat.id, ctx.wizard.state.messageToDelete)
