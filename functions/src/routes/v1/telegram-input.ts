@@ -12,7 +12,7 @@ const BOT_TOKEN = config.TG_BOT_TOKEN as string
 const bot = new Telegraf(BOT_TOKEN)
 
 const textoInicial = `*notiBelo*
-Creá alertas sobre los precios del dólar, Ethereum o Bitcoin en Belo.
+Creá alertas sobre los precios del dólar, Ethereum o Bitcoin en Belo. ⚠️ Bot NO oficial.
 *Comandos para interactuar con el bot:*
 /dolar - Crea una alerta sobre el precio del dólar (USDC, USDT o DAI)
 /alerta - Crea una alerta sobre el precio de Ethereum o Bitcoin (en ARS o USD)
