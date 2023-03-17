@@ -67,7 +67,7 @@ checkPrices.post("/", async (req: Request, res: Response) => {
         const bot = new Telegraf(TG_BOT_TOKEN)
         bot.telegram.sendMessage(
           alert.chatId,
-          `🔹 ${
+          `🔻 ${
             alert.pairCode.startsWith("BTC")
               ? "Bitcoin(BTC)"
               : alert.pairCode.startsWith("ETH")
@@ -79,7 +79,7 @@ checkPrices.post("/", async (req: Request, res: Response) => {
               : alert.pairCode.startsWith("DAI")
               ? "DAI"
               : "ARS"
-          } bajó a $${alert.targetPrice} ${alert.pairCode.endsWith("ARS") ? "ARS" : "USD"} 🔹`
+          } bajó a $${alert.targetPrice} ${alert.pairCode.endsWith("ARS") ? "ARS" : "USD"} 🔻`
         )
       }
     })
